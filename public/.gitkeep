@@ -1,0 +1,11 @@
+# Place your images and assets here
+# 
+# Recommended structure:
+# /public/
+#   /images/
+#     /projects/     - Project images
+#     /hero/         - Hero background images
+#     /features/     - Feature/service images
+#   logo.png         - Company logo
+#   favicon.ico      - Site favicon
+
