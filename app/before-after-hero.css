@@ -1,0 +1,480 @@
+/* ==========================================================================
+   BEFORE/AFTER HERO - Revolution Slider Style Comparison Hero
+   Performance-optimized with GPU acceleration
+   ========================================================================== */
+
+.ba-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  background-color: #252525;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  /* Contain layout and paint to this element */
+  contain: layout style;
+}
+
+.ba-hero__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: ew-resize;
+  user-select: none;
+  /* GPU layer for container */
+  transform: translateZ(0);
+}
+
+.ba-hero__container.is-transitioning {
+  pointer-events: none;
+  cursor: default;
+}
+
+.ba-hero__container.is-dragging {
+  cursor: grabbing;
+}
+
+/* --------------------------------------------------------------------------
+   Slide Wrapper - For smooth fade transitions between slides
+   -------------------------------------------------------------------------- */
+
+.ba-hero__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transform: translateZ(0);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+.ba-hero__slide.is-fading {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Image Layers - GPU Optimized
+   -------------------------------------------------------------------------- */
+
+.ba-hero__before,
+.ba-hero__after {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Force GPU compositing layer */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.ba-hero__before {
+  z-index: 1;
+}
+
+.ba-hero__after {
+  z-index: 2;
+  /* GPU-accelerated clip-path - no transition during drag for max performance */
+  will-change: clip-path;
+}
+
+.ba-hero__container:not(.is-dragging) .ba-hero__after {
+  transition: clip-path 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ba-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* Prevent image reflow and optimize rendering */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* Overlays for contrast - static, no animation needed */
+.ba-hero__before-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(231, 231, 231, 0.3) 0%,
+    rgba(231, 231, 231, 0.1) 50%,
+    rgba(231, 231, 231, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ba-hero__after-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.15) 50%,
+    rgba(0, 0, 0, 0.35) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Content Layers
+   -------------------------------------------------------------------------- */
+
+.ba-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+  z-index: 10;
+  pointer-events: none;
+  
+  /* GPU-accelerated animation using transform and opacity only */
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 1.2s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+}
+
+.ba-hero__content.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.ba-hero__content--before {
+  transition-delay: 0.3s;
+}
+
+.ba-hero__content--after {
+  transition-delay: 0.8s;
+}
+
+/* --------------------------------------------------------------------------
+   Typography - Headline
+   -------------------------------------------------------------------------- */
+
+.ba-hero__headline {
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  font-size: clamp(60px, 10vw, 120px);
+  font-weight: 900;
+  letter-spacing: 0.4em;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0 0 30px 0;
+  padding-left: 0.4em; /* Compensate for letter-spacing */
+}
+
+.ba-hero__headline--dark {
+  color: #2e313b;
+}
+
+.ba-hero__headline--light {
+  color: #ffffff;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* --------------------------------------------------------------------------
+   Typography - Subtext
+   -------------------------------------------------------------------------- */
+
+.ba-hero__subtext {
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  max-width: 960px;
+  margin: 0 0 60px 0;
+}
+
+.ba-hero__subtext--dark {
+  color: #2e313b;
+}
+
+.ba-hero__subtext--light {
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   CTA Buttons
+   -------------------------------------------------------------------------- */
+
+.ba-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 45px;
+  font-family: 'Poppins', 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 60px;
+  height: 60px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background-color 0.2s ease,
+              color 0.2s ease,
+              transform 0.2s ease;
+}
+
+.ba-hero__cta--dark {
+  color: #ffffff;
+  background-color: #2e313b;
+}
+
+.ba-hero__cta--dark:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.ba-hero__cta--light {
+  color: #2e313b;
+  background-color: #ffffff;
+}
+
+.ba-hero__cta--light:hover {
+  background-color: #2e313b;
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Slider Handle - Draggable divider for before/after comparison
+   -------------------------------------------------------------------------- */
+
+.ba-hero__slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 60px;
+  z-index: 20;
+  cursor: ew-resize;
+  touch-action: none;
+  /* Center the handle on the position */
+  transform: translateX(-50%);
+  /* GPU acceleration hints */
+  will-change: left;
+  backface-visibility: hidden;
+  /* Smooth opacity transition for slide changes */
+  opacity: 1;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable left transition during drag for instant response */
+.ba-hero__container.is-dragging .ba-hero__slider {
+  transition: none;
+}
+
+.ba-hero__slider.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ba-hero__slider-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.ba-hero__slider-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 60px;
+  height: 60px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  backface-visibility: hidden;
+  pointer-events: none;
+}
+
+.ba-hero__slider:hover .ba-hero__slider-handle {
+  transform: translate3d(-50%, -50%, 0) scale(1.1);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+}
+
+.ba-hero__container.is-dragging .ba-hero__slider-handle {
+  transform: translate3d(-50%, -50%, 0) scale(1.05);
+}
+
+.ba-hero__slider-handle svg {
+  width: 24px;
+  height: 24px;
+  color: #2e313b;
+}
+
+/* --------------------------------------------------------------------------
+   Slide Indicators
+   -------------------------------------------------------------------------- */
+
+.ba-hero__indicators {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 30;
+}
+
+.ba-hero__indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.ba-hero__indicator:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.ba-hero__indicator.is-active {
+  background: #ffffff;
+  transform: scale(1.2);
+}
+
+/* ==========================================================================
+   RESPONSIVE STYLES
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .ba-hero__headline {
+    letter-spacing: 0.3em;
+    padding-left: 0.3em;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ba-hero__headline {
+    font-size: clamp(48px, 8vw, 80px);
+    letter-spacing: 0.2em;
+    padding-left: 0.2em;
+  }
+  
+  .ba-hero__subtext {
+    font-size: 16px;
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ba-hero {
+    min-height: 100vh;
+  }
+
+  .ba-hero__headline {
+    font-size: clamp(36px, 10vw, 60px);
+    letter-spacing: 0.1em;
+    padding-left: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  .ba-hero__subtext {
+    font-size: 14px;
+    max-width: 320px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  .ba-hero__cta {
+    font-size: 13px;
+    padding: 0 30px;
+    height: 50px;
+    line-height: 50px;
+    letter-spacing: 0.2em;
+  }
+
+  .ba-hero__slider-handle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .ba-hero__slider-handle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ba-hero__indicators {
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ba-hero__headline {
+    font-size: clamp(32px, 12vw, 48px);
+    letter-spacing: 0.05em;
+    padding-left: 0.05em;
+  }
+
+  .ba-hero__subtext {
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .ba-hero__cta {
+    font-size: 12px;
+    padding: 0 25px;
+    height: 45px;
+    line-height: 45px;
+  }
+
+  .ba-hero__slider-handle {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION PREFERENCES
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .ba-hero__content {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .ba-hero__after {
+    transition: none !important;
+  }
+
+  .ba-hero__cta,
+  .ba-hero__slider-handle,
+  .ba-hero__indicator {
+    transition: none !important;
+  }
+}

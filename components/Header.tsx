@@ -34,10 +34,19 @@ export default function Header() {
     { name: 'Contact', href: '/contact' },
   ]
 
+  const baseLink = isScrolled
+    ? 'text-gray-900 hover:text-gray-600'
+    : 'text-white/80 hover:text-white'
+  const ctaClasses = isScrolled
+    ? 'bg-black text-white hover:bg-gray-900'
+    : 'bg-white text-black hover:bg-gray-100 shadow-[0_18px_40px_rgba(0,0,0,0.25)]'
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+        isScrolled
+          ? 'bg-white/95 text-gray-900 shadow-lg'
+          : 'bg-gradient-to-r from-black/45 via-black/20 to-transparent text-white backdrop-blur-xl'
       }`}
     >
       <nav className="container mx-auto px-4 lg:px-8">
@@ -47,7 +56,11 @@ export default function Header() {
             <div className="text-2xl lg:text-3xl font-bold tracking-wider">
               DND
             </div>
-            <span className="ml-2 text-sm lg:text-base font-light hidden sm:inline">
+            <span
+              className={`ml-2 hidden text-sm lg:text-base font-light sm:inline ${
+                isScrolled ? 'text-gray-600' : 'text-white/70'
+              }`}
+            >
               Drishti Nimawat Designs
             </span>
           </Link>
@@ -61,10 +74,7 @@ export default function Header() {
                 onMouseEnter={() => item.dropdown && setHoveredItem(item.name)}
                 onMouseLeave={() => setHoveredItem(null)}
               >
-                <Link
-                  href={item.href}
-                  className="text-sm font-medium uppercase tracking-wider hover:text-gray-600 transition-colors"
-                >
+                <Link href={item.href} className={`text-sm font-medium uppercase tracking-wider transition-colors ${baseLink}`}>
                   {item.name}
                 </Link>
                 {item.dropdown && (
@@ -75,13 +85,14 @@ export default function Header() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 mt-2 w-64 bg-white shadow-lg py-4"
+                        className="absolute top-full left-0 mt-2 w-64 bg-white shadow-xl py-4 z-[60]"
+                        style={{ pointerEvents: 'auto' }}
                       >
                         {item.dropdown.map((subItem) => (
                           <Link
                             key={subItem.name}
                             href={subItem.href}
-                            className="block px-6 py-2 text-sm hover:bg-gray-50 transition-colors"
+                            className="block px-6 py-2 text-sm text-gray-800 hover:bg-gray-50 hover:text-gray-900 transition-colors"
                           >
                             {subItem.name}
                           </Link>
@@ -92,10 +103,7 @@ export default function Header() {
                 )}
               </div>
             ))}
-            <Link
-              href="/contact"
-              className="bg-black text-white px-6 py-3 text-sm font-medium uppercase tracking-wider hover:bg-gray-800 transition-colors"
-            >
+            <Link href="/contact" className={`rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] transition ${ctaClasses}`}>
               Get Started
             </Link>
           </div>
@@ -107,17 +115,14 @@ export default function Header() {
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
           >
-            <motion.span
-              animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : {}}
-              className="w-6 h-0.5 bg-black"
-            />
+            <motion.span animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : {}} className={`w-6 h-0.5 ${isScrolled ? 'bg-black' : 'bg-white'}`} />
             <motion.span
               animate={isMobileMenuOpen ? { opacity: 0 } : {}}
-              className="w-6 h-0.5 bg-black"
+              className={`w-6 h-0.5 ${isScrolled ? 'bg-black' : 'bg-white'}`}
             />
             <motion.span
               animate={isMobileMenuOpen ? { rotate: -45, y: -8 } : {}}
-              className="w-6 h-0.5 bg-black"
+              className={`w-6 h-0.5 ${isScrolled ? 'bg-black' : 'bg-white'}`}
             />
           </button>
         </div>

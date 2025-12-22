@@ -1,0 +1,334 @@
+/* ==========================================================================
+   CINEMATIC HERO - Luxury Architecture Portfolio Hero Section
+   A premium, editorial hero section with architectural precision
+   ========================================================================== */
+
+.cinematic-hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 700px;
+  max-height: 1200px;
+  background-color: #0a0a0a;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.cinematic-hero__container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 clamp(32px, 6vw, 96px);
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  gap: clamp(48px, 5vw, 80px);
+  align-items: center;
+  height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Left Column - Text Content
+   -------------------------------------------------------------------------- */
+
+.cinematic-hero__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-right: clamp(16px, 2vw, 40px);
+  
+  /* Animation initial state */
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.cinematic-hero__content.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   Typography - Headline
+   -------------------------------------------------------------------------- */
+
+.cinematic-hero__heading {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: clamp(2.75rem, 5vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.12;
+  color: #ffffff;
+  margin: 0 0 clamp(24px, 3vw, 40px) 0;
+  max-width: 580px;
+  text-align: left;
+  text-shadow: none;
+}
+
+.cinematic-hero__heading--accent {
+  color: #c4a76c;
+  display: inline;
+}
+
+/* --------------------------------------------------------------------------
+   Typography - Subtext / Description
+   -------------------------------------------------------------------------- */
+
+.cinematic-hero__subtext {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: clamp(0.9rem, 1.1vw, 1.0625rem);
+  font-weight: 400;
+  line-height: 1.8;
+  color: #8a8a8a;
+  max-width: 400px;
+  margin: 0 0 clamp(32px, 3.5vw, 48px) 0;
+  text-align: left;
+}
+
+/* --------------------------------------------------------------------------
+   CTA Button - Minimal Luxury Style
+   -------------------------------------------------------------------------- */
+
+.cinematic-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 36px;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c4a76c;
+  background: transparent;
+  border: 1px solid #c4a76c;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+              color 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
+              border-color 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  min-height: 52px;
+  min-width: 44px;
+}
+
+.cinematic-hero__cta:hover,
+.cinematic-hero__cta:focus {
+  background-color: #c4a76c;
+  color: #0a0a0a;
+  border-color: #c4a76c;
+  outline: none;
+}
+
+.cinematic-hero__cta:focus-visible {
+  outline: 2px solid #c4a76c;
+  outline-offset: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Right Column - Media
+   -------------------------------------------------------------------------- */
+
+.cinematic-hero__media {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(60px, 8vh, 100px) 0;
+  
+  /* Animation initial state */
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.22, 0.61, 0.36, 1) 0.25s;
+}
+
+.cinematic-hero__media.is-visible {
+  opacity: 1;
+}
+
+.cinematic-hero__media-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.cinematic-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.cinematic-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.12) 0%,
+    rgba(10, 10, 10, 0) 40%,
+    rgba(10, 10, 10, 0) 60%,
+    rgba(10, 10, 10, 0.08) 100%
+  );
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE STYLES
+   ========================================================================== */
+
+/* Large Desktop */
+@media (min-width: 1400px) {
+  .cinematic-hero__heading {
+    font-size: 4.25rem;
+  }
+}
+
+/* Tablet Landscape */
+@media (max-width: 1200px) {
+  .cinematic-hero__container {
+    grid-template-columns: 48fr 52fr;
+    gap: 40px;
+  }
+
+  .cinematic-hero__heading {
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+  }
+}
+
+/* Tablet Portrait */
+@media (max-width: 1024px) {
+  .cinematic-hero {
+    min-height: 600px;
+  }
+
+  .cinematic-hero__container {
+    grid-template-columns: 50fr 50fr;
+    gap: 32px;
+    padding: 0 clamp(24px, 5vw, 48px);
+  }
+
+  .cinematic-hero__content {
+    padding-right: 16px;
+  }
+
+  .cinematic-hero__heading {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    max-width: 100%;
+  }
+
+  .cinematic-hero__subtext {
+    max-width: 100%;
+  }
+
+  .cinematic-hero__media {
+    padding: 80px 0;
+  }
+}
+
+/* Mobile Landscape / Large Mobile */
+@media (max-width: 768px) {
+  .cinematic-hero {
+    height: auto;
+    min-height: 100vh;
+    max-height: none;
+    padding: 120px 0 80px 0;
+  }
+
+  .cinematic-hero__container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: clamp(48px, 10vw, 72px);
+    padding: 0 clamp(24px, 6vw, 48px);
+    height: auto;
+    align-items: start;
+  }
+
+  .cinematic-hero__content {
+    order: 1;
+    text-align: left;
+    align-items: flex-start;
+    padding-right: 0;
+  }
+
+  .cinematic-hero__heading {
+    font-size: clamp(2.25rem, 8vw, 3rem);
+    line-height: 1.15;
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .cinematic-hero__subtext {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    max-width: 100%;
+    margin-bottom: 36px;
+  }
+
+  .cinematic-hero__media {
+    order: 2;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+  }
+
+  .cinematic-hero__media-wrapper {
+    width: 100%;
+    max-height: 55vh;
+    aspect-ratio: 4 / 5;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .cinematic-hero {
+    padding: 100px 0 60px 0;
+  }
+
+  .cinematic-hero__container {
+    padding: 0 20px;
+    gap: 40px;
+  }
+
+  .cinematic-hero__heading {
+    font-size: clamp(1.875rem, 9vw, 2.5rem);
+  }
+
+  .cinematic-hero__subtext {
+    font-size: 0.875rem;
+  }
+
+  .cinematic-hero__cta {
+    width: 100%;
+    padding: 18px 28px;
+    justify-content: center;
+  }
+
+  .cinematic-hero__media-wrapper {
+    max-height: 50vh;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION PREFERENCES
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-hero__content,
+  .cinematic-hero__media {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .cinematic-hero__cta {
+    transition: none !important;
+  }
+}

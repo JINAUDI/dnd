@@ -1,0 +1,73 @@
+/**
+ * Fullscreen Hero Styles
+ * 
+ * Use these CSS classes for fullscreen background images.
+ * No margins or padding - fills entire viewport.
+ */
+
+/* Version 1: Background-size cover (CSS background method) */
+.hero-section {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/assets/home/sofa-room.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: scroll;
+  overflow: hidden;
+}
+
+/* Version 2: Using img with object-fit */
+.fullscreen-img-container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.fullscreen-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Ensure no default body margins */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: Smooth transitions if animating */
+.hero-section.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments (if needed for specific cases) */
+@media (max-width: 768px) {
+  .hero-section {
+    width: 100vw;
+    height: 100vh;
+    /* Image still covers entire screen */
+  }
+
+  .fullscreen-img-container {
+    width: 100vw;
+    height: 100vh;
+  }
+}

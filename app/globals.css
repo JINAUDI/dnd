@@ -2,18 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+@import './cinematic-hero.css';
+@import './before-after-hero.css';
 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
+
+  /* Interactive hero tuning variables */
+  --hover-scale: 1.03;
+  --hover-scale-mid: 1.02;
+  --hover-translate-y: -8px;
+  --parallax-max-x: 10px;
+  --parallax-max-y: 6px;
+  --hover-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+  --hover-duration: 0.35s;
+  --quickview-width-desktop: 40%;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 html {
@@ -54,5 +78,73 @@ a {
 /* Smooth transitions */
 * {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Header Logo Styling */
+.header-logo {
+  display: block;
+  height: auto;
+  width: auto;
+  max-height: 56px;
+  object-fit: contain;
+  object-position: left center;
+  filter: none;
+  mix-blend-mode: normal;
+  transition: filter 300ms ease;
+}
+
+@media (min-width: 1024px) {
+  .header-logo {
+    max-height: 64px;
+  }
+}
+
+/* Ensure logo is crisp on all backgrounds */
+header .header-logo {
+  image-rendering: crisp-edges;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Unified hero image hover interaction (right-side image block) */
+.hero-image-motion {
+  transform-origin: center center;
+  will-change: transform, filter, box-shadow;
+  transition: transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.hero-image-motion:hover {
+  transform: translateY(-6px) scale(1.02);
+  filter: brightness(1.04);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* Tablet: slightly reduced scale and lift */
+@media (max-width: 1024px) {
+  .hero-image-motion:hover {
+    transform: translateY(-4px) scale(1.015);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Mobile: minimal effect - only a light scale, no lift, no heavy shadow */
+@media (max-width: 640px) {
+  .hero-image-motion:hover {
+    transform: translateY(0) scale(1.01);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    filter: brightness(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image-motion,
+  .hero-image-motion:hover {
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
 }
 

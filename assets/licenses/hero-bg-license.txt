@@ -1,0 +1,5 @@
+Image: hero-bg.jpg
+Source: https://unsplash.com/photos/photo-1600585154340-be6161a56a0c
+Photographer: Patrick Perkins (Unsplash)
+License: Unsplash License (free to use)
+
