@@ -13,7 +13,6 @@ export default function Hero() {
           className={styles.image}
           draggable={false}
         />
-        />
 
         {/* Hotspots: percentage positions assume a 1920x1080 image (16:9). */}
 
