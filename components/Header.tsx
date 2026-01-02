@@ -18,6 +18,18 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMobileMenuOpen])
+
   const navItems = [
     { name: 'Our Story', href: '/our-story' },
     { name: 'Our Process', href: '/our-process' },
@@ -99,27 +111,23 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden z-50 flex flex-col space-y-1.5"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
-            aria-expanded={isMobileMenuOpen}
-          >
-            <motion.span animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : {}} className={`w-6 h-0.5 ${isScrolled ? 'bg-black' : 'bg-white'}`} />
-            <motion.span
-              animate={isMobileMenuOpen ? { opacity: 0 } : {}}
-              className={`w-6 h-0.5 ${isScrolled ? 'bg-black' : 'bg-white'}`}
-            />
-            <motion.span
-              animate={isMobileMenuOpen ? { rotate: -45, y: -8 } : {}}
-              className={`w-6 h-0.5 ${isScrolled ? 'bg-black' : 'bg-white'}`}
-            />
-          </button>
+          {/* Mobile Menu Button - Hidden when menu is open */}
+          {!isMobileMenuOpen && (
+            <button
+              className="lg:hidden z-[10001] flex flex-col space-y-1.5"
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <span className={`w-6 h-0.5 ${isScrolled ? 'bg-black' : 'bg-white'}`} />
+              <span className={`w-6 h-0.5 ${isScrolled ? 'bg-black' : 'bg-white'}`} />
+              <span className={`w-6 h-0.5 ${isScrolled ? 'bg-black' : 'bg-white'}`} />
+            </button>
+          )}
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu - Full Screen Modal */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -127,25 +135,47 @@ export default function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-white z-40 lg:hidden"
+            className="fixed inset-0 z-[10000] lg:hidden"
+            style={{ backgroundColor: '#F5F1EB', width: '100vw', height: '100vh', top: 0, left: 0 }}
           >
-            <motion.div
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="h-full flex flex-col pt-24 px-8"
-            >
+            {/* Top Bar with Logo and Close Button */}
+            <div className="flex items-center justify-between px-4 py-4">
+              {/* Logo */}
+              <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
+                <Image
+                  src="/assets/logo/logo1.png"
+                  alt="Drishti Nimawat Designs"
+                  width={250}
+                  height={100}
+                  className="object-contain brightness-0"
+                  style={{ width: '250px', height: 'auto', maxWidth: 'unset', maxHeight: 'unset' }}
+                  priority
+                />
+              </Link>
+              
+              {/* Close Button */}
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 text-[#111111] hover:opacity-70 transition-opacity"
+                aria-label="Close menu"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="h-full flex flex-col pt-8 px-8 overflow-y-auto">
               {navItems.map((item, index) => (
                 <motion.div
                   key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
                   <Link
                     href={item.href}
-                    className="block py-4 text-xl font-medium uppercase tracking-wider border-b border-gray-200"
+                    className="block py-5 text-2xl font-semibold uppercase tracking-wider border-b border-[#111111]/20 text-[#111111] hover:opacity-70 transition-opacity"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
@@ -156,7 +186,7 @@ export default function Header() {
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className="block py-2 text-base text-gray-600"
+                          className="block py-2 text-lg font-semibold text-[#111111]/80 hover:text-[#111111] transition-colors"
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
                           {subItem.name}
@@ -167,20 +197,20 @@ export default function Header() {
                 </motion.div>
               ))}
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navItems.length * 0.1 }}
-                className="mt-8"
+                className="mt-10"
               >
                 <Link
                   href="/contact"
-                  className="inline-block bg-black text-white px-8 py-4 text-sm font-medium uppercase tracking-wider"
+                  className="inline-block bg-[#111111] text-white px-8 py-4 text-sm font-semibold uppercase tracking-wider hover:bg-[#111111]/90 transition-colors"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Get Started
                 </Link>
               </motion.div>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
