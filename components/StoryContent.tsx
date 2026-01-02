@@ -57,7 +57,7 @@ export default function StoryContent() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="prose prose-lg max-w-none"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Mission</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Story</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
               To create beautiful, functional, and sustainable spaces that enrich lives and inspire
               communities. We are committed to excellence in every project, no matter the scale,

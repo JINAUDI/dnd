@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Header() {
@@ -18,16 +19,6 @@ export default function Header() {
   }, [])
 
   const navItems = [
-    {
-      name: 'Explore Features',
-      href: '/#features',
-      dropdown: [
-        { name: 'Residential Design', href: '/#features?filter=residential' },
-        { name: 'Commercial Design', href: '/#features?filter=commercial' },
-        { name: 'Interior Design', href: '/#features?filter=interior' },
-        { name: 'Architectural Services', href: '/#features?filter=architectural' },
-      ],
-    },
     { name: 'Our Story', href: '/our-story' },
     { name: 'Our Process', href: '/our-process' },
     { name: 'Projects', href: '/projects' },
@@ -53,16 +44,16 @@ export default function Header() {
         <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <Link href="/" className="flex items-center z-50">
-            <div className="text-2xl lg:text-3xl font-bold tracking-wider">
-              DND
-            </div>
-            <span
-              className={`ml-2 hidden text-sm lg:text-base font-light sm:inline ${
-                isScrolled ? 'text-gray-600' : 'text-white/70'
+            <Image
+              src="/assets/logo/logo1.png"
+              alt="Drishti Nimawat Designs"
+              width={1000}
+              height={400}
+              className={`object-contain max-h-64 lg:max-h-80 w-auto transition-all duration-300 ${
+                isScrolled ? 'brightness-0' : 'brightness-100'
               }`}
-            >
-              Drishti Nimawat Designs
-            </span>
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

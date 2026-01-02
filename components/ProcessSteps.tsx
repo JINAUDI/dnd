@@ -21,22 +21,17 @@ const steps = [
   },
   {
     number: '04',
-    title: 'Approval & Refinement',
-    description: 'Based on your feedback, we refine the design until it perfectly matches your vision. All details are finalized, including materials, finishes, and specifications.',
-  },
-  {
-    number: '05',
     title: 'Project Management',
     description: 'We coordinate with contractors, suppliers, and artisans to ensure smooth execution. Regular site visits and updates keep you informed throughout the process.',
   },
   {
-    number: '06',
-    title: 'Installation & Styling',
+    number: '05',
+    title: 'Designing, Styling and Installation',
     description: 'Our team oversees the installation of all elements, ensuring quality and precision. Final styling and accessories complete the transformation.',
   },
   {
-    number: '07',
-    title: 'Final Walkthrough',
+    number: '06',
+    title: 'Finishing and Handovers',
     description: 'We conduct a comprehensive walkthrough to ensure everything meets our high standards. Your feedback is addressed, and we provide guidance for maintaining your new space.',
   },
 ]
